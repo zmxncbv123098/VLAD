@@ -54,7 +54,7 @@ class Article:
         self.allMedia = allMedia
 
 
-url = 'https://meduza.io/feature/2017/05/26/put-tyazhelyy-nagrada-bolshe'
+url = 'https://meduza.io/feature/2017/05/26/kakovo-eto-kogda-v-tebya-popadaet-molniya'
 html = requests.get(url).text
 soup = BeautifulSoup(html, "lxml")
 
