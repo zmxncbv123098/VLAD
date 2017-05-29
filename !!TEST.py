@@ -54,17 +54,24 @@ class Article:
         self.allMedia = allMedia
 
 
-url = 'https://meduza.io/feature/2017/05/27/antisovetskiy-chelovek'
+url = 'https://meduza.io/feature/2017/05/26/put-tyazhelyy-nagrada-bolshe'
 html = requests.get(url).text
 soup = BeautifulSoup(html, "lxml")
 
 title1 = soup.find("span", {'class': 'MediaMaterialHeader-first'}).text
-title2 = soup.find("span", {'class': 'MediaMaterialHeader-second'}).text
+try:
+    title2 = soup.find("span", {'class': 'MediaMaterialHeader-second'}).text
+except AttributeError:
+    print('TITLE 2 - NONE!!!!')
 
 # print(title1, title2)
 
 div = soup.find('div', {'class': 'MediaMaterial-materialContent'})
-mainMaterialImage = div.find('div', {'class': 'MainMaterialImage-image'}).find('img').get('src')
+try:
+    mainMaterialImage = div.find('div', {'class': 'MainMaterialImage-image'}).find('img').get('src')
+except AttributeError:
+    pass
+
 leadContent = div.find('div', {'class': 'Lead'}).find_all('p')
 leadText = []
 allText = []
@@ -92,7 +99,10 @@ for i in img:
 video = imgContent.find_all('iframe')
 for i in video:
     allMedia.append(i.get('src'))
-allMedia.append(mainMaterialImage)
+try:
+    allMedia.append(mainMaterialImage)
+except NameError:
+    pass
 
 
 # print(allMedia)
